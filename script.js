@@ -1,19 +1,19 @@
 'use strict';
 
-const money = Number(prompt('Ваш месячный доход?')),
-income = 'фриланс',
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-deposit = confirm('Есть ли у вас депозит в банке?'),
-expenses1 = prompt('Введите обязательную статью расходов'),
-amount1 = Number(prompt('Во сколько это обойдется?')),
-expenses2 = prompt('Введите обязательную статью расходов'),
-amount2 = Number(prompt('Во сколько это обойдется?')),
-mission = 1000000,
-period = 6,
-lowerCase = addExpenses.toLowerCase(),
-budgetMonth = money - (amount1 + amount2),
-budgetDay = Math.floor(budgetMonth / 30),
-missionTime = Math.ceil(mission / budgetMonth);
+const money = +prompt('Ваш месячный доход?'),
+    income = 'фриланс',
+    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
+    deposit = confirm('Есть ли у вас депозит в банке?'),
+    expenses1 = prompt('Введите обязательную статью расходов'),
+    amount1 = +prompt('Во сколько это обойдется?'),
+    expenses2 = prompt('Введите обязательную статью расходов'),
+    amount2 = +prompt('Во сколько это обойдется?'),
+    mission = 1000000,
+    period = 6,
+    lowerCase = addExpenses.toLowerCase(),
+    budgetMonth = money - (amount1 + amount2),
+    budgetDay = Math.floor(budgetMonth / 30),
+    missionTime = Math.ceil(mission / budgetMonth);
 
 console.log(typeof money);
 console.log(typeof income);
