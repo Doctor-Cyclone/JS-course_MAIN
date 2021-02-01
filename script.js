@@ -2,14 +2,8 @@
 
 const money = Number(prompt('Ваш месячный доход?')),
 income = 'фриланс',
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-let deposit = confirm('Есть ли у вас депозит в банке?');
-
-if (deposit === 'да') {
-    deposit = true;
-} else {
-    deposit = false;
-}
+addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
+deposit = confirm('Есть ли у вас депозит в банке?');
 
 const expenses1 = prompt('Введите обязательную статью расходов'),
 amount1 = Number(prompt('Во сколько это обойдется?')),
