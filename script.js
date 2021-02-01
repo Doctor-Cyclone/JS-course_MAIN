@@ -3,9 +3,8 @@
 const money = Number(prompt('Ваш месячный доход?')),
 income = 'фриланс',
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-deposit = confirm('Есть ли у вас депозит в банке?');
-
-const expenses1 = prompt('Введите обязательную статью расходов'),
+deposit = confirm('Есть ли у вас депозит в банке?'),
+expenses1 = prompt('Введите обязательную статью расходов'),
 amount1 = Number(prompt('Во сколько это обойдется?')),
 expenses2 = prompt('Введите обязательную статью расходов'),
 amount2 = Number(prompt('Во сколько это обойдется?')),
