@@ -1,6 +1,5 @@
 'use strict';
 
-let accumulatedMonth, budgetDay, missionTime;
 const money = +prompt('Ваш месячный доход?', 40000),
     income = 'фриланс',
     addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
@@ -14,23 +13,29 @@ const money = +prompt('Ваш месячный доход?', 40000),
     showTypeOf = function(arg){
         return typeof(arg);
     },
-    getStatusIncome = function(income){
-        return income;
-    },
     getExpensesMonth = function(amount1, amount2){
         return amount1 + amount2;
     },
     getAccumulatedMonth = function(money, amount1, amount2){
         return money - (amount1 + amount2);
+    },
+    accumulatedMonth = getAccumulatedMonth(money, amount1, amount2),
+    budgetDay = Math.floor(accumulatedMonth / 30),
+    missionTime = Math.ceil(mission / accumulatedMonth),
+    getTargetMonth = function(mission, accumulatedMonth){
+        return Math.ceil(mission / accumulatedMonth);
+    },
+    getStatusIncome = function(budgetDay){
+        if (budgetDay >= 1200) {
+            return 'У вас высокий уровень дохода';
+        } else if (budgetDay >= 600 && budgetDay <= 1200) {
+            return 'У вас средний уровень дохода';
+        } else if (budgetDay >= 0 && budgetDay <= 600) {
+            return 'К сожалению у вас уровень дохода ниже среднего';
+        } else {
+            return 'Что то пошло не так';
+        }
     };
-
-accumulatedMonth = getAccumulatedMonth(money, amount1, amount2);
-budgetDay = Math.floor(accumulatedMonth / 30);
-missionTime = Math.ceil(mission / accumulatedMonth);
-
-const getTargetMonth = function(mission, accumulatedMonth){
-    return Math.ceil(mission / accumulatedMonth);
-};
 
 console.log(showTypeOf(money));
 console.log(showTypeOf(income));
@@ -39,4 +44,4 @@ console.log('Обязательные расходы: ' + getExpensesMonth(amoun
 console.log(addExpenses.split(', '));
 console.log('Вы накопите за: ' + getTargetMonth(mission, accumulatedMonth) + ' месяца');
 console.log('Бюджет на день = ' + budgetDay);
-console.log('Дополнительный заработок: ' + getStatusIncome(income));
+console.log(getStatusIncome(budgetDay));
