@@ -10,23 +10,19 @@ const money = +prompt('Ваш месячный доход?', 40000),
     expenses2 = prompt('Введите обязательную статью расходов'),
     amount2 = +prompt('Во сколько это обойдется?', 5000),
     mission = 1000000,
-    period = 6;
-
-const showTypeOf = function(arg){
-    return typeof(arg);
-};
-
-const getStatusIncome = function(income){
-    return income;
-};
-
-const getExpensesMonth = function(amount1, amount2){
-    return amount1 + amount2;
-};
-
-const getAccumulatedMonth = function(money, amount1, amount2){
-    return money - (amount1 + amount2);
-};
+    period = 6,
+    showTypeOf = function(arg){
+        return typeof(arg);
+    },
+    getStatusIncome = function(income){
+        return income;
+    },
+    getExpensesMonth = function(amount1, amount2){
+        return amount1 + amount2;
+    },
+    getAccumulatedMonth = function(money, amount1, amount2){
+        return money - (amount1 + amount2);
+    };
 
 accumulatedMonth = getAccumulatedMonth(money, amount1, amount2);
 budgetDay = Math.floor(accumulatedMonth / 30);
