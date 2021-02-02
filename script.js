@@ -41,7 +41,7 @@ console.log(showTypeOf(money));
 console.log(showTypeOf(income));
 console.log(showTypeOf(deposit));
 console.log('Обязательные расходы: ' + getExpensesMonth(amount1, amount2));
-console.log(addExpenses.split(', '));
+console.log((addExpenses.toLowerCase()).split(', '));
 console.log('Вы накопите за: ' + getTargetMonth(mission, accumulatedMonth) + ' месяца');
 console.log('Бюджет на день = ' + budgetDay);
 console.log(getStatusIncome(budgetDay));
