@@ -1,7 +1,7 @@
 'use strict';
 
 let isNumber = function(n){
-    return !isNaN(parseFloat(n)) && isFinite(n)
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 let money,
@@ -10,7 +10,7 @@ let money,
 //Доход в месяц
     start = function(){
         do{
-            money = prompt('Ваш месячный доход?');
+            money = +prompt('Ваш месячный доход?');
         }
         while(!isNumber(money));
         return money;
@@ -55,7 +55,7 @@ const income = 'фриланс',
     getTargetMonth = function(){
         const targetMonth = Math.ceil(mission / accumulatedMonth);
 
-        if(targetMonth < 0){
+        if(targetMonth < 0 || targetMonth === Infinity){
             return 'Цель не будет достигнута';
         } else {
             return 'Цель будет достигнута через ' + targetMonth + ' месяцев';
