@@ -29,13 +29,21 @@ let appData = {
     mission: 75000,
     period: 6,
     asking: function(){
-            appData.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-            appData.addExpenses = appData.addExpenses.toLowerCase().split(', ');
+            appData.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую').toLowerCase().split(', ');
             appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
             //Ежемесячные расходы
-            for(let i = 0; i < 2; i++){
-                appData.expenses[prompt('Введите обязательную статью расходов', 'такси')] = +prompt('Во сколько это обойдется?', 5000);
+            let cost, exp;
+
+            for(let i = 0; i < 2; i++){   
+                exp = prompt('Введите обязательную статью расходов', 'такси');
+
+                do{
+                    cost = prompt('Во сколько это обойдется?', 5000);
+                }
+                while(!isNumber(cost));
+
+                appData.expenses[exp] = +cost;
             }
             //Всего потрачено в месяц
             for(let key in appData.expenses){
@@ -74,11 +82,9 @@ appData.asking();
 appData.getBudget();
 
 console.log('Расходы за месяц: ' + appData.expensesMonth);
-//console.log(appData.addExpenses);
 console.log(appData.getTargetMonth());
-//console.log('Бюджет на день = ' + appData.budgetDay);
 console.log(appData.getStatusIncome(appData.budgetDay));
-
+console.log(appData.expenses);
 for(let key in appData){
     console.log('Наша программа включает в себя данные: ' + key + ' ' + appData[key]);
 }
