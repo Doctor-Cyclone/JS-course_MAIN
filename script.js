@@ -139,7 +139,6 @@ addExpensesConsole();
 console.log('Расходы за месяц: ' + appData.expensesMonth);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome(appData.budgetDay));
-
 console.log(appData.addExpenses);
 
 for(let key in appData){
