@@ -20,7 +20,7 @@ const addExpensesConsole = function(){
     let tempStr = '';
 
     for(let i = 0; i < appData.addExpenses.length; i++){
-        let temp = appData.addExpenses[i],
+        const temp = appData.addExpenses[i],
             firstSymbol = temp.substring(0, 1).toUpperCase(),
             otherSymbol = temp.substring(1, temp.length);
 
