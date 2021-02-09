@@ -1,5 +1,32 @@
 'use strict';
 
+const startBtn = document.getElementById('start'),
+
+    plusBtnOne = document.getElementsByTagName('button')[0],
+    plusBtnTwo = document.getElementsByTagName('button')[1],
+
+    depositCheckBox = document.querySelector('#deposit-check'),
+    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
+//Вывод
+    budgetMonth = document.getElementsByClassName('budget_month-value'),
+    budgetDay = document.getElementsByClassName('budget_day-value'),
+    expensesMonth = document.getElementsByClassName('expenses_month-value'),
+    additionalIncome = document.getElementsByClassName('additional_income-value'),
+    additionalExpenses = document.getElementsByClassName('additional_expenses-value'),
+    incomePeriod = document.getElementsByClassName('income_period-value'),
+    targetMonth = document.getElementsByClassName('target_month-value'),
+//Ввод
+    salaryAmount = document.querySelector('.salary-amount'),
+    incomeTitle = document.querySelector('.income-title'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesTitle = document.querySelector('.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
+    depositAmount = document.querySelector('.deposit-amount'),
+    depositPercent = document.querySelector('.deposit-percent'),
+    targetAmount = document.querySelector('.target-amount'),
+    periodSelect = document.querySelector('.period-select');
+
 const isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
