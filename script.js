@@ -49,16 +49,27 @@ let appData = {
     moneyDeposit: 0,
     //Доход в месяц
     start: function(){
-            appData.getExpenses();
-            appData.getExpensesMonth();
-            appData.getAddExpenses();
-            appData.getIncome();
-            appData.getAddIncome();
-            appData.getBudget();
-            appData.getTargetMonth();
-            appData.calcSavedMoney();
+        appData.budget = +salaryAmount.value;
 
-            appData.showResult();
+        appData.getExpenses();
+        appData.getExpensesMonth();
+        appData.getAddExpenses();
+        appData.getIncome();
+        appData.getAddIncome();
+
+        appData.getBudget();
+        appData.getTargetMonth();
+        appData.calcSavedMoney();
+
+        appData.showResult();
+
+    },
+    checkSalaryAmount: function(){
+        if(salaryAmount.value === ''){
+            alert();
+        } else {
+            appData.start();
+        }
     },
     //Вывод результатов
     showResult: function(){
@@ -204,15 +215,7 @@ let appData = {
 };
 
 
-startBtn.setAttribute('disabled', true);
-startBtn.addEventListener('change', function(){
-    if(salaryAmount.value !== ''){
-        startBtn.setAttribute('disabled', false);
-        startBtn.addEventListener('click', appData.start);
-    } else {
-        startBtn.setAttribute('disabled', true);
-    }
-});
+startBtn.addEventListener('click', appData.checkSalaryAmount);
 
 expensesPlusBtn.addEventListener('click', appData.addExpensesBlock);
 incomePlusBtn.addEventListener('click', appData.addIncomeBlock);
