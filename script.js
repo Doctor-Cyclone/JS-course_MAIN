@@ -64,6 +64,7 @@ let appData = {
         appData.showResult();
 
     },
+    //Проверка поля МЕСЯЧНЫЙ ДОХОД на пустоту
     checkSalaryAmount: function(){
         if(salaryAmount.value === ''){
             alert();
@@ -214,9 +215,7 @@ let appData = {
     },
 };
 
-
 startBtn.addEventListener('click', appData.checkSalaryAmount);
-
 expensesPlusBtn.addEventListener('click', appData.addExpensesBlock);
 incomePlusBtn.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.changePeriodNumber);
