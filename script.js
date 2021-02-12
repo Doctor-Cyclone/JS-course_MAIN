@@ -75,7 +75,7 @@ let appData = {
     //Вывод результатов
     showResult: function(){
         budgetMonthValue.value = appData.budgetMonth;
-        budgetDayValue.value = Math.ceil(appData.budgetDay);
+        budgetDayValue.value = appData.budgetDay;
         expensesMonthValue.value = appData.expensesMonth;
         additionalExpensesValue.value = appData.addExpenses.join(', ');
         additionalIncomeValue.value = appData.addIncome.join(', ');
@@ -120,8 +120,10 @@ let appData = {
         let addExpenses = additionalExpensesItem.value.split(',');
         addExpenses.forEach(function(item){
             item = item.trim(); 
-            if(item !== ''){
-                appData.addExpenses.push(item);
+            let itemValueLower = item.charAt(0).toUpperCase() + item.substring(1).toLowerCase();
+
+            if(itemValueLower !== ''){
+                appData.addExpenses.push(itemValueLower);
             }
         });
     },
@@ -130,9 +132,11 @@ let appData = {
     //Добавление в массив ВОЗМОЖНЫХ ДОХОДОВ
     getAddIncome: function(){
         additionalIncomeItem.forEach(function(item){
-            let itemValue = item.value.trim();
-            if(itemValue !== ''){
-                appData.addIncome.push(itemValue);
+            let itemValue = item.value.trim(),
+                itemValueLower = itemValue.charAt(0).toUpperCase() + itemValue.substring(1).toLowerCase();
+
+            if(itemValueLower !== ''){
+                appData.addIncome.push(itemValueLower);
             }
         });
     },
@@ -167,7 +171,7 @@ let appData = {
     //Накопления за месяц
     getBudget: function(){
         appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
-        appData.budgetDay = appData.budgetMonth / 30;
+        appData.budgetDay = Math.ceil(appData.budgetMonth / 30);
     },
     //Как долго копить
     getTargetMonth: function(){
