@@ -259,9 +259,7 @@ let appData = {
     //Очистка полей после нажатия кнопки сбросить
     reset: function(){
         let leftSideInputs = document.querySelectorAll('.data input[type=text]');
-        leftSideInputs.forEach( item => {
-            item.removeAttribute("disabled", "disabled");
-        });
+        leftSideInputs.forEach( item => item.disabled = false);
 
         incomeItems.forEach( (item, index) => {
             if(index < 1){
@@ -278,9 +276,9 @@ let appData = {
             }
         });
 
-        incomePlusBtn.removeAttribute("disabled", "disabled");
-        expensesPlusBtn.removeAttribute("disabled", "disabled");
-        depositCheckmark.removeAttribute("disabled", "disabled");
+        incomePlusBtn.disabled = false;
+        expensesPlusBtn.disabled = false;
+        depositCheckmark.disabled = false;
         depositCheckmark.checked = false;
 
         let allInput = document.querySelectorAll('input[type=text]');
