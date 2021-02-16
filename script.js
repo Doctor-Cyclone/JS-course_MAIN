@@ -87,13 +87,12 @@ let appData = {
         additionalIncomeValue.value = this.addIncome.join(', ');
         targetMonthValue.value = this.getTargetMonth();
 
-        periodSelect.addEventListener('input', this.calcSavedMoney);
+        periodSelect.addEventListener('input', () => this.calcSavedMoney());
     },
 
 //ОБЯЗАТЕЛЬНЫЕ РАСХОДЫ
     //Добавление полей ОБЯЗАТЕЛЬНЫХ РАСХОДОВ
-    addExpensesBlock: () => {
-        console.log(this);
+    addExpensesBlock: function(){
         const cloneExpensesItem = expensesItems[0].cloneNode(true);
         //Очистка добавленнного поля НАИМЕНОВАНИЕ
 		let childCloneExpensesItemTitle = cloneExpensesItem.querySelector('.expenses-title');
@@ -157,7 +156,7 @@ let appData = {
 
 //ДОПОЛНИТЕЛЬНЫЙ ДОХОД
     //Добавление полей ДОПОЛНИТЕЛЬНЫХ ДОХОДОВ
-    addIncomeBlock: () => {
+    addIncomeBlock: function(){
         const cloneIncomeItem = incomeItems[0].cloneNode(true);
         //Очистка добавленнного поля НАИМЕНОВАНИЕ
 		let childCloneIncomeItemTitle = cloneIncomeItem.querySelector('.income-title');
@@ -303,8 +302,10 @@ startBtn.addEventListener('click', function(){
     }
 });
 cancelBtn.addEventListener('click', appData.reset);
-expensesPlusBtn.addEventListener('click', appData.addExpensesBlock);
-incomePlusBtn.addEventListener('click', appData.addIncomeBlock);
+
+expensesPlusBtn.addEventListener('click', () => appData.addExpensesBlock());
+incomePlusBtn.addEventListener('click', () => appData.addIncomeBlock());
+
 periodSelect.addEventListener('input', function(){
     periodAmount.innerHTML = periodSelect.value;
 });
