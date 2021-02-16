@@ -180,8 +180,8 @@ let appData = {
                 }
         });
 
-        for(let key in appData.income){
-            appData.incomeMonth += +appData.income[key];
+        for(let key in this.income){
+            this.incomeMonth += +this.income[key];
         }
     },
     //Накопления за месяц
@@ -201,11 +201,11 @@ let appData = {
     },
     //Уровень дохода
     getStatusIncome: function(){
-        if (appData.budgetDay >= 1200) {
+        if (this.budgetDay >= 1200) {
             return 'У вас высокий уровень дохода';
-        } else if (appData.budgetDay >= 600 && appData.budgetDay <= 1200) {
+        } else if (this.budgetDay >= 600 && this.budgetDay <= 1200) {
             return 'У вас средний уровень дохода';
-        } else if (appData.budgetDay >= 0 && appData.budgetDay <= 600) {
+        } else if (this.budgetDay >= 0 && this.budgetDay <= 600) {
             return 'К сожалению у вас уровень дохода ниже среднего';
         } else {
             return 'Что то пошло не так';
@@ -213,16 +213,16 @@ let appData = {
     },
     //Депозит
     getInfoDeposit: function(){
-        if(appData.deposit){
+        if(this.deposit){
             do{
-                appData.persentDeposit = prompt('Какой годовой процент?', 10);
+                this.persentDeposit = prompt('Какой годовой процент?', 10);
             }
-            while(!isNumber(appData.persentDeposit));
+            while(!isNumber(this.persentDeposit));
 
             do{
-                appData.moneyDeposit = prompt('Какая сумма заложена?', 10000);
+                this.moneyDeposit = prompt('Какая сумма заложена?', 10000);
             }
-            while(!isNumber(appData.moneyDeposit));
+            while(!isNumber(this.moneyDeposit));
         }
     },
     //Динамический подсчёт накоплений за период
