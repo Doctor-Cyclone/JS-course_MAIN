@@ -282,6 +282,7 @@ let appData = {
         expensesPlusBtn.disabled = false;
         depositCheckmark.disabled = false;
         depositCheckmark.checked = false;
+	periodSelect.disabled = false;
         periodSelect.value = 1;
         periodAmount.innerHTML = 1;
 
