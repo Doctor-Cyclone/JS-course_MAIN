@@ -5,6 +5,7 @@
 // Income - доход
 
 let startBtn = document.getElementById('start'),
+    cancelBtn = document.getElementById('cancel'),
     incomePlusBtn = document.getElementsByTagName('button')[0],
     expensesPlusBtn = document.getElementsByTagName('button')[1],
 //Вывод
@@ -61,6 +62,7 @@ let appData = {
         this.calcSavedMoney();
 
         this.showResult();
+        this.blockingInputLeftSide();
 
     },
     //Проверка поля МЕСЯЧНЫЙ ДОХОД на пустоту
@@ -248,11 +250,39 @@ let appData = {
             });
         });
         
-    },    
+    },
+    //Блокировка input'ов после нажатия кнопки рассчитать
+    blockingInputLeftSide: function(){
+        let leftSideInputs = document.querySelectorAll('.data input[type=text]');
+
+        leftSideInputs.forEach( item => {
+            item.setAttribute("disabled", "disabled");
+        });
+
+        startBtn.style.display = 'none';
+
+        cancelBtn.style.display = 'flex';
+        cancelBtn.style.justifyContent = 'center';
+        cancelBtn.style.alignItems = 'center';
+    },
+    //Очистка полей после нажатия кнопки сбросить
+    reset: function(){
+        let leftSideInputs = document.querySelectorAll('input[type=text]');
+
+        leftSideInputs.forEach( item => {
+            item.value = '';
+        });
+        startBtn.style.display = 'flex';
+        startBtn.style.justifyContent = 'center';
+        startBtn.style.alignItems = 'center';
+
+        cancelBtn.style.display = 'none';
+    },
 };
 appData.addCheckField();
 
 startBtn.addEventListener('click', appData.checkSalaryAmount);
+cancelBtn.addEventListener('click', appData.reset);
 expensesPlusBtn.addEventListener('click', appData.addExpensesBlock);
 incomePlusBtn.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.changePeriodNumber);
