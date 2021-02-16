@@ -92,7 +92,7 @@ let appData = {
 
 //ОБЯЗАТЕЛЬНЫЕ РАСХОДЫ
     //Добавление полей ОБЯЗАТЕЛЬНЫХ РАСХОДОВ
-    addExpensesBlock: function(){
+    addExpensesBlock: () => {
         console.log(this);
         const cloneExpensesItem = expensesItems[0].cloneNode(true);
         //Очистка добавленнного поля НАИМЕНОВАНИЕ
@@ -105,7 +105,7 @@ let appData = {
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlusBtn);
         expensesItems = document.querySelectorAll('.expenses-items');
 
-        appData.addCheckField();
+        this.addCheckField();
 
         if(expensesItems.length === 3){
             expensesPlusBtn.style.display = 'none';
@@ -157,7 +157,7 @@ let appData = {
 
 //ДОПОЛНИТЕЛЬНЫЙ ДОХОД
     //Добавление полей ДОПОЛНИТЕЛЬНЫХ ДОХОДОВ
-    addIncomeBlock: function(){
+    addIncomeBlock: () => {
         const cloneIncomeItem = incomeItems[0].cloneNode(true);
         //Очистка добавленнного поля НАИМЕНОВАНИЕ
 		let childCloneIncomeItemTitle = cloneIncomeItem.querySelector('.income-title');
@@ -169,7 +169,7 @@ let appData = {
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlusBtn);
         incomeItems = document.querySelectorAll('.income-items');
 
-        appData.addCheckField();
+        this.addCheckField();
 
         if(incomeItems.length === 3){
             incomePlusBtn.style.display = 'none';
