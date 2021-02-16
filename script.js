@@ -105,7 +105,7 @@ let appData = {
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlusBtn);
         expensesItems = document.querySelectorAll('.expenses-items');
 
-        this.addCheckField();
+        appData.addCheckField();
 
         if(expensesItems.length === 3){
             expensesPlusBtn.style.display = 'none';
@@ -169,7 +169,7 @@ let appData = {
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlusBtn);
         incomeItems = document.querySelectorAll('.income-items');
 
-        this.addCheckField();
+        appData.addCheckField();
 
         if(incomeItems.length === 3){
             incomePlusBtn.style.display = 'none';
