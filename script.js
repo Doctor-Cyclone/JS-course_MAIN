@@ -29,7 +29,8 @@ let startBtn = document.getElementById('start'),
     depositPercent = document.querySelector('.deposit-percent'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
-    periodAmount = document.querySelector('.period-amount');
+    periodAmount = document.querySelector('.period-amount'),
+    depositCheckmark = document.getElementById('deposit-check');
 
 const isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -58,6 +59,7 @@ AppData.prototype.start = function(){
     });
     incomePlusBtn.setAttribute("disabled", "disabled");
     expensesPlusBtn.setAttribute("disabled", "disabled");
+    depositCheckmark.setAttribute("disabled", "disabled");
 
     startBtn.style.display = 'none';
     cancelBtn.style.display = 'block';
@@ -71,6 +73,7 @@ AppData.prototype.start = function(){
 
     this.getBudget();
     this.getTargetMonth();
+    this.calcSavedMoney();
 
     this.showResult();
 };
@@ -84,9 +87,7 @@ AppData.prototype.showResult = function(){
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = this.getTargetMonth();
 
-    periodSelect.addEventListener('input', function(){
-        incomePeriodValue.value = appData.budgetMonth * periodSelect.value;
-    });
+    periodSelect.addEventListener('input', () => this.calcSavedMoney());
 };
 
 //ОБЯЗАТЕЛЬНЫЕ РАСХОДЫ
@@ -138,6 +139,7 @@ AppData.prototype.getAddExpenses = function(){
             this.addExpenses.push(itemValueLower);
         }
     });
+    this.addCheckField();
 };
 
 //ВОЗМОЖНЫЕ ДОХОДЫ
@@ -229,7 +231,10 @@ AppData.prototype.getInfoDeposit = function(){
         while(!isNumber(this.moneyDeposit));
     }
 };
-
+//Динамический подсчёт накоплений за период
+AppData.prototype.calcSavedMoney = function(){
+    incomePeriodValue.value = this.budgetMonth * periodSelect.value;
+},
 //Динамическое обновление периода
 AppData.prototype.changePeriodNumber = function(){
     periodAmount.innerHTML = periodSelect.value;
@@ -255,20 +260,51 @@ AppData.prototype.addCheckField = function(){
 //Очистка полей после нажатия кнопки сбросить
 AppData.prototype.reset = function(){
     let leftSideInputs = document.querySelectorAll('.data input[type=text]');
+        leftSideInputs.forEach( item => item.disabled = false);
 
-    leftSideInputs.forEach( item => {
-        item.removeAttribute("disabled", "disabled");
-    });
-    incomePlusBtn.removeAttribute("disabled", "disabled");
-    expensesPlusBtn.removeAttribute("disabled", "disabled");
+        incomeItems.forEach( (item, index) => {
+            if(index < 1){
+                return;
+            } else {
+                item.remove();
+            }
+        });
 
-    let allInput = document.querySelectorAll('input[type=text]');
+        expensesItems.forEach( (item, index) => {
+            if(index < 1){
+                return;
+            } else {
+                item.remove();
+            }
+        });
 
-    allInput.forEach( item => {
-        item.value = '';
-    });
-    startBtn.style.display = 'block';
-    cancelBtn.style.display = 'none';
+        incomePlusBtn.disabled = false;
+        expensesPlusBtn.disabled = false;
+        depositCheckmark.disabled = false;
+        depositCheckmark.checked = false;
+        periodSelect.value = 1;
+        periodAmount.innerHTML = 1;
+
+        let allInput = document.querySelectorAll('input[type=text]');
+        allInput.forEach( item => {
+            item.value = '';
+        });
+
+        this.budget = 0;
+        this.expensesMonth = 0;
+        this.budgetMonth = 0;
+        this.budgetDay = 0;
+        this.income = {};
+        this.incomeMonth = 0;
+        this.addIncome = [];
+        this.expenses = {};
+        this.addExpenses = [];
+        this.deposit = false;
+        this.persentDeposit = 0;
+        this.moneyDeposit = 0;
+
+        startBtn.style.display = 'block';
+        cancelBtn.style.display = 'none';
 };
 AppData.prototype.eventsListeners = function(){
     this.addCheckField();
@@ -280,9 +316,9 @@ AppData.prototype.eventsListeners = function(){
             _this.start();
         }
     });
-    cancelBtn.addEventListener('click', this.reset);
-    expensesPlusBtn.addEventListener('click', this.addExpensesBlock);
-    incomePlusBtn.addEventListener('click', this.addIncomeBlock);
+    cancelBtn.addEventListener('click', () => appData.reset());
+    expensesPlusBtn.addEventListener('click', () => appData.addExpensesBlock());
+    incomePlusBtn.addEventListener('click', () => appData.addIncomeBlock());
     periodSelect.addEventListener('input', this.changePeriodNumber);
 };
 
