@@ -60,7 +60,6 @@ let appData = {
         incomePlusBtn.setAttribute("disabled", "disabled");
         expensesPlusBtn.setAttribute("disabled", "disabled");
         depositCheckmark.setAttribute("disabled", "disabled");
-        periodSelect.setAttribute("disabled", "disabled");
 
         startBtn.style.display = 'none';
         cancelBtn.style.display = 'block';
@@ -282,7 +281,6 @@ let appData = {
         expensesPlusBtn.disabled = false;
         depositCheckmark.disabled = false;
         depositCheckmark.checked = false;
-	periodSelect.disabled = false;
         periodSelect.value = 1;
         periodAmount.innerHTML = 1;
 
