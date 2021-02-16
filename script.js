@@ -267,9 +267,15 @@ let appData = {
     },
     //Очистка полей после нажатия кнопки сбросить
     reset: function(){
-        let leftSideInputs = document.querySelectorAll('input[type=text]');
+        let leftSideInputs = document.querySelectorAll('.data input[type=text]');
 
         leftSideInputs.forEach( item => {
+            item.removeAttribute("disabled", "disabled");
+        });
+
+        let allInput = document.querySelectorAll('input[type=text]');
+
+        allInput.forEach( item => {
             item.value = '';
         });
         startBtn.style.display = 'flex';
