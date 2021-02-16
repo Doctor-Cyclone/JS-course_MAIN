@@ -60,6 +60,7 @@ let appData = {
         incomePlusBtn.setAttribute("disabled", "disabled");
         expensesPlusBtn.setAttribute("disabled", "disabled");
         depositCheckmark.setAttribute("disabled", "disabled");
+        periodSelect.setAttribute("disabled", "disabled");
 
         startBtn.style.display = 'none';
         cancelBtn.style.display = 'block';
@@ -232,7 +233,7 @@ let appData = {
     },
     //Динамический подсчёт накоплений за период
     calcSavedMoney: function(){
-        incomePeriodValue.value = appData.budgetMonth * periodSelect.value;
+        incomePeriodValue.value = this.budgetMonth * periodSelect.value;
     },
     //Динамическое обновление периода
     changePeriodNumber: function(){
@@ -268,6 +269,7 @@ let appData = {
                 item.remove();
             }
         });
+
         expensesItems.forEach( (item, index) => {
             if(index < 1){
                 return;
@@ -280,11 +282,26 @@ let appData = {
         expensesPlusBtn.disabled = false;
         depositCheckmark.disabled = false;
         depositCheckmark.checked = false;
+        periodSelect.value = 1;
+        periodAmount.innerHTML = 1;
 
         let allInput = document.querySelectorAll('input[type=text]');
         allInput.forEach( item => {
             item.value = '';
         });
+
+        this.budget = 0;
+        this.expensesMonth = 0;
+        this.budgetMonth = 0;
+        this.budgetDay = 0;
+        this.income = {};
+        this.incomeMonth = 0;
+        this.addIncome = [];
+        this.expenses = {};
+        this.addExpenses = [];
+        this.deposit = false;
+        this.persentDeposit = 0;
+        this.moneyDeposit = 0;
 
         startBtn.style.display = 'block';
         cancelBtn.style.display = 'none';
@@ -299,7 +316,7 @@ startBtn.addEventListener('click', function(){
         appData.start();
     }
 });
-cancelBtn.addEventListener('click', appData.reset);
+cancelBtn.addEventListener('click', () => appData.reset());
 
 expensesPlusBtn.addEventListener('click', () => appData.addExpensesBlock());
 incomePlusBtn.addEventListener('click', () => appData.addIncomeBlock());
