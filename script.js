@@ -91,10 +91,10 @@ class AppData{
     addExpensesBlock(){
         const cloneExpensesItem = expensesItems[0].cloneNode(true);
         //Очистка добавленнного поля НАИМЕНОВАНИЕ
-        let childCloneExpensesItemTitle = cloneExpensesItem.querySelector('.expenses-title');
+        const childCloneExpensesItemTitle = cloneExpensesItem.querySelector('.expenses-title');
         childCloneExpensesItemTitle.value = '';
         //Очистка добавленнного поля СУММА
-        let childCloneExpensesItemAmount = cloneExpensesItem.querySelector('.expenses-amount');
+        const childCloneExpensesItemAmount = cloneExpensesItem.querySelector('.expenses-amount');
         childCloneExpensesItemAmount.value = '';
 
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlusBtn);
@@ -118,7 +118,7 @@ class AppData{
     }
 //Общая сумма ОБЯЗАТЕЛЬНЫХ РАСХОДОВ за месяц
     getExpensesMonth(){
-        for(let key in this.expenses){
+        for(const key in this.expenses){
             this.expensesMonth += this.expenses[key];
         }
     }
@@ -157,10 +157,10 @@ class AppData{
     addIncomeBlock(){
         const cloneIncomeItem = incomeItems[0].cloneNode(true);
         //Очистка добавленнного поля НАИМЕНОВАНИЕ
-        let childCloneIncomeItemTitle = cloneIncomeItem.querySelector('.income-title');
+        const childCloneIncomeItemTitle = cloneIncomeItem.querySelector('.income-title');
         childCloneIncomeItemTitle.value = '';
         //Очистка добавленнного поля СУММА
-        let childCloneIncomeItemAmount = cloneIncomeItem.querySelector('.income-amount');
+        const childCloneIncomeItemAmount = cloneIncomeItem.querySelector('.income-amount');
         childCloneIncomeItemAmount.value = '';
 
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlusBtn);
@@ -183,7 +183,7 @@ class AppData{
                 }
         });
 
-        for(let key in this.income){
+        for(const key in this.income){
             this.incomeMonth += +this.income[key];
         }
     }
@@ -296,21 +296,20 @@ class AppData{
     }
 //Навешивание событий 
     eventsListeners(){
+        this.addCheckField();
+        const _this = this;
 
-    this.addCheckField();
-    const _this = this;
-
-    startBtn.addEventListener('click', function(){
-        if(salaryAmount.value === ''){
-            alert('Поле "Месячный доход" пустое!!!');
-        } else {
-            _this.start();
-        }
-    });
-    cancelBtn.addEventListener('click', () => appData.reset());
-    expensesPlusBtn.addEventListener('click', () => appData.addExpensesBlock());
-    incomePlusBtn.addEventListener('click', () => appData.addIncomeBlock());
-    periodSelect.addEventListener('input', this.changePeriodNumber);
+        startBtn.addEventListener('click', function(){
+            if(salaryAmount.value === ''){
+                alert('Поле "Месячный доход" пустое!!!');
+            } else {
+                _this.start();
+            }
+        });
+        cancelBtn.addEventListener('click', () => this.reset());
+        expensesPlusBtn.addEventListener('click', () => this.addExpensesBlock());
+        incomePlusBtn.addEventListener('click', () => this.addIncomeBlock());
+        periodSelect.addEventListener('input', this.changePeriodNumber);
     }
 }
 
