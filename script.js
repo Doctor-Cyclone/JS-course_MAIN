@@ -77,7 +77,6 @@ AppData.prototype.start = function(){
 
     this.showResult();
 };
-
 //Вывод результатов
 AppData.prototype.showResult = function(){
     budgetMonthValue.value = this.budgetMonth;
@@ -89,7 +88,6 @@ AppData.prototype.showResult = function(){
 
     periodSelect.addEventListener('input', () => this.calcSavedMoney());
 };
-
 //ОБЯЗАТЕЛЬНЫЕ РАСХОДЫ
 //Добавление полей ОБЯЗАТЕЛЬНЫХ РАСХОДОВ
 AppData.prototype.addExpensesBlock = function(){
@@ -316,9 +314,9 @@ AppData.prototype.eventsListeners = function(){
             _this.start();
         }
     });
-    cancelBtn.addEventListener('click', () => appData.reset());
-    expensesPlusBtn.addEventListener('click', () => appData.addExpensesBlock());
-    incomePlusBtn.addEventListener('click', () => appData.addIncomeBlock());
+    cancelBtn.addEventListener('click', () => this.reset());
+    expensesPlusBtn.addEventListener('click', () => this.addExpensesBlock());
+    incomePlusBtn.addEventListener('click', () => this.addIncomeBlock());
     periodSelect.addEventListener('input', this.changePeriodNumber);
 };
 
