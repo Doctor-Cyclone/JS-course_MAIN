@@ -286,6 +286,7 @@ class AppData{
         cancelBtn.style.display = 'none';
         depositBank.style.display = 'none';
         depositAmount.style.display = 'none';
+        depositPercent.style.display = 'none';
         depositBank.value = '';
         depositAmount.value = '';
     }
@@ -312,6 +313,7 @@ class AppData{
             });  
             
         } else {
+            depositPercent.style.display = 'none';
             depositPercent.value = valueSelect;
         }
     }
