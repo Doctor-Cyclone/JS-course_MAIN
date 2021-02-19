@@ -300,15 +300,18 @@ class AppData{
     changePercent(){
         const valueSelect = this.value;
         if(valueSelect === 'other'){
+            depositPercent.value = '';
             depositPercent.style.display = 'inline-block';
             depositPercent.addEventListener('input', function(){
                 depositPercent.value = depositPercent.value.replace(/[^0-9+$]/gi, '');
                 if(depositPercent.value > 0 && depositPercent.value < 101){
                     startBtn.disabled = false;
                     return;
+                } else if(depositPercent.value === ''){
+                    startBtn.disabled = true;
                 } else {
                     alert('Введите процент в диапазоне 1%-100%');
-                    startBtn.disabled = true;
+                    depositPercent.value = 1;
                 }
             });  
             
