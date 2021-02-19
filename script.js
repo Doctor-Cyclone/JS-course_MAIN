@@ -329,6 +329,7 @@ class AppData{
 
             depositBank.addEventListener('change', this.changePercent);
         } else {
+            depositPercent.style.display = 'none';
             depositBank.style.display = 'none';
             depositAmount.style.display = 'none';
 
