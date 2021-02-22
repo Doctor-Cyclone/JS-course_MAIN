@@ -6,7 +6,7 @@ const greeting = document.getElementById('greeting'),
 	untilTheNewYear = document.getElementById('untilTheNewYear'),
 	nowDate = new Date();
 
-//Расчёт времени суток
+//Расчёт времени суток//////////////////////////////////////////////////////////////
 const timesOfDayCheck = function(dayTime){
 	if(dayTime >= 4 && dayTime <= 12){
 		return 'Доброе утро';
@@ -18,7 +18,7 @@ const timesOfDayCheck = function(dayTime){
 		return 'Доброй ночи';
 	}
 };
-//Время до Нового Года
+//Время до Нового Года//////////////////////////////////////////////////////////////
 const timesToNewYear = function(newYearDate){
 	let dateStop = new Date(newYearDate).getTime(),
 		datNow = new Date().getTime(),
@@ -26,7 +26,8 @@ const timesToNewYear = function(newYearDate){
 		days = Math.floor(timeRemaining / 60 / 60 / 24);
 	return days;
 };
-//Подборка слова ДЕНЬ
+//Подборка слова ДЕНЬ//////////////////////////////////////////////////////////////
+//Максимально колхозно, другого способа пока не придумал(((
 const wordsEnd = function(){
 	const day = timesToNewYear('31 december 2021');
 	if(day % 10 === 1 && day % 100 !== 11){
@@ -37,7 +38,7 @@ const wordsEnd = function(){
 		return `${day} дней`;
 	}
 };
-
+//Вывод информации на экран//////////////////////////////////////////////////////////////
 const info = function(){
 	let weekDaytext = nowDate.toLocaleString('ru', {weekday: 'long'}),
 		localTimeText = nowDate.toLocaleString('en', {hour: 'numeric', minute: 'numeric', second: 'numeric'});
