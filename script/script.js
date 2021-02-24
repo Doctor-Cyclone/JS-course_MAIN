@@ -74,12 +74,10 @@ window.addEventListener('DOMContentLoaded', function(){
 		menu.addEventListener('click', (event) => {
 			let target = event.target;
 
-			if(target.classList.contains('close-btn')){
+			if(target.classList.contains('close-btn') || target.tagName === 'a'){
 				handlerMenu();
-			} else if(target.classList.contains('active-menu')){
+			} else{
 				return;
-			} else {
-				handlerMenu();
 			}
 		});
 	};
