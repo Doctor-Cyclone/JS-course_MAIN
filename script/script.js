@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	};
 	
 	smoothScrolling();
-	
+
 //////PopUp/////////////////////////////////////////////////////////////////////////
 	const togglePopup = () => {
 		const popup = document.querySelector('.popup'),
@@ -150,9 +150,7 @@ window.addEventListener('DOMContentLoaded', function(){
 			if(target.classList.contains('popup-close')){
 				closeAnimation();
 			} else {
-				target = target.closest('.popup-content');
-
-				if(!target){
+				if(!target.closest('.popup-content')){
 					closeAnimation();
 				}
 			}			
