@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', function(){
 		menu.addEventListener('click', (event) => {
 			let target = event.target;
 
-			if(target.classList.contains('close-btn') || target.tagName === 'a'){
+			if(target.classList.contains('close-btn') || target.tagName === 'A'){
 				handlerMenu();
 			} else{
 				return;
@@ -81,6 +81,29 @@ window.addEventListener('DOMContentLoaded', function(){
 	};
 
 	toggleMenu();
+
+//////Плавная прокрутка/////////////////////////////////////////////////////////////////////////
+	const smoothScrolling = () => {
+		const anchors = document.querySelectorAll('menu a[href*="#"]');
+
+		document.querySelector('html').style.scrollBehavior = 'smooth';
+
+		for (let item of anchors) {
+			item.addEventListener('click', (event) => {
+				event.preventDefault();
+
+				const blockID = item.getAttribute('href').substr(1);
+				if(blockID !== 'close'){
+					document.getElementById(blockID).scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
+			});
+		}
+	};
+	
+	smoothScrolling();
 	
 //////PopUp/////////////////////////////////////////////////////////////////////////
 	const togglePopup = () => {
