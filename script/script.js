@@ -2,13 +2,13 @@ window.addEventListener('DOMContentLoaded', function(){
 	'use strict';
 
 //////Таймер/////////////////////////////////////////////////////////////////////////
-	function countTimer(deadLine){
+	const countTimer = (deadLine) =>{
 		const timeDays = document.querySelector('#timer-days'), 
 			timeHours = document.querySelector('#timer-hours'),
 			timeMinutes = document.querySelector('#timer-minutes'),
 			timeSeconds = document.querySelector('#timer-seconds');
 
-//////////Добавление 0 в начале числа/////////////////////////////////////////////////////////////////////////
+		//Добавление 0 в начале числа/////////////////////////////////////////////////////////////////////////
 		function numCheck(num){
 			num = num.toString().split('');
 			if(num.length === 1){
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', function(){
 			}
 		}	
 
-//////////Получение всех данных/////////////////////////////////////////////////////////////////////////
+		//Получение всех данных/////////////////////////////////////////////////////////////////////////
 		function getTimeRemainig(){
 			let dateStop = new Date(deadLine).getTime(),
 				datNow = new Date().getTime(),
@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', function(){
 			return {days, hours, minutes, seconds , timeRemaining};
 		}
 
-//////////Вывод времени на экран/////////////////////////////////////////////////////////////////////////
+		//Вывод времени на экран/////////////////////////////////////////////////////////////////////////
 		function updateClock(){
 			const timer = getTimeRemainig();
 
@@ -56,8 +56,60 @@ window.addEventListener('DOMContentLoaded', function(){
 
 		const idInterval = setInterval(updateClock, 1000);
 		updateClock();
-	}
+	};
 
 	countTimer('31 december 2021');
 
+//////Меню/////////////////////////////////////////////////////////////////////////
+	const toggleMenu = () => {
+		const btnMenu = document.querySelector('.menu'),
+			menu = document.querySelector('menu'),
+			closeBtn = document.querySelector('.close-btn'),
+			menuItems = document.querySelectorAll('ul>li');
+
+		const handlerMenu = () => menu.classList.toggle('active-menu');	
+		btnMenu.addEventListener('click', handlerMenu);
+		closeBtn.addEventListener('click', handlerMenu);
+		menuItems.forEach( item => item.addEventListener('click', handlerMenu));
+	};
+
+	toggleMenu();
+	
+//////PopUp/////////////////////////////////////////////////////////////////////////
+	const togglePopup = () => {
+		const popup = document.querySelector('.popup'),
+			popupBtn = document.querySelectorAll('.popup-btn'),
+			popupClose = document.querySelector('.popup-close'),
+			popupContent = document.querySelector('.popup-content'),
+			scrollWidth = document.documentElement.scrollWidth;
+
+		popupBtn.forEach( item => {
+			item.addEventListener('click', () => {
+				if(scrollWidth < 768){
+					popup.style.display = 'block';
+				} else {
+					popupContent.style.transform = 'scale(0)';
+					popup.style.display = 'block';
+					setTimeout(() => {
+						popupContent.style.transition = 'all .2s linear';
+						popupContent.style.transform = 'scale(1)';
+					}, 100);
+				}
+			});
+		});
+		popupClose.addEventListener('click', () => {
+			if(scrollWidth < 768){
+				popup.style.display = 'none';
+			} else {
+				popupContent.style.transition = '';
+				popupContent.style.transition = 'all .2s linear';
+				popupContent.style.transform = 'scale(0)';
+				setTimeout(() => {
+					popup.style.display = 'none';
+				}, 250);
+			}
+		});
+	};
+
+	togglePopup();
 });
