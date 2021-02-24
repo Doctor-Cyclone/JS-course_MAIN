@@ -79,37 +79,89 @@ window.addEventListener('DOMContentLoaded', function(){
 	const togglePopup = () => {
 		const popup = document.querySelector('.popup'),
 			popupBtn = document.querySelectorAll('.popup-btn'),
-			popupClose = document.querySelector('.popup-close'),
 			popupContent = document.querySelector('.popup-content'),
 			scrollWidth = document.documentElement.scrollWidth;
 
-		popupBtn.forEach( item => {
-			item.addEventListener('click', () => {
-				if(scrollWidth < 768){
-					popup.style.display = 'block';
-				} else {
-					popupContent.style.transform = 'scale(0)';
-					popup.style.display = 'block';
-					setTimeout(() => {
-						popupContent.style.transition = 'all .2s linear';
-						popupContent.style.transform = 'scale(1)';
-					}, 100);
-				}
-			});
-		});
-		popupClose.addEventListener('click', () => {
+		const closeAnimation = () => {
 			if(scrollWidth < 768){
 				popup.style.display = 'none';
 			} else {
-				popupContent.style.transition = '';
 				popupContent.style.transition = 'all .2s linear';
 				popupContent.style.transform = 'scale(0)';
 				setTimeout(() => {
 					popup.style.display = 'none';
 				}, 250);
 			}
+		}
+		const openAnimation = () => {
+			if(scrollWidth < 768){
+				popup.style.display = 'block';
+			} else {
+				popupContent.style.transform = 'scale(0)';
+				popup.style.display = 'block';
+				setTimeout(() => {
+					popupContent.style.transition = 'all .2s linear';
+					popupContent.style.transform = 'scale(1)';
+				}, 100);
+			}
+		}
+
+		//Открытие//////////////////////////////////////////////////////////////////
+		popupBtn.forEach( item => {
+			item.addEventListener('click', () => {
+				openAnimation();
+			});
+		});
+
+		//Закрытие/////////////////////////////////////////////////////////////////
+		popup.addEventListener('click', (event) => {
+			let target = event.target;
+
+			if(target.classList.contains('popup-close')){
+				closeAnimation();
+			} else {
+				target = target.closest('.popup-content');
+
+				if(!target){
+					closeAnimation();
+				}
+			}			
 		});
 	};
 
 	togglePopup();
+
+//////Табы/////////////////////////////////////////////////////////////////////////
+	const tabs = () => {
+		const tabHeader = document.querySelector('.service-header'),
+			tab = document.querySelectorAll('.service-header-tab'),
+			tabContent = document.querySelectorAll('.service-tab');
+
+		const toggleTabContent = (index) => {
+			for(let i = 0; i < tabContent.length; i++){
+				if(index === i){
+					tab[i].classList.add('active');
+					tabContent[i].classList.remove('d-none');
+				} else {
+					tab[i].classList.remove('active');
+					tabContent[i].classList.add('d-none');
+				}
+			}
+		};
+
+		tabHeader.addEventListener('click', (event) => {
+			let target = event.target;
+				target = target.closest('.service-header-tab');
+
+			if(target){
+				tab.forEach( (item, index) => {
+					if(item === target){
+						toggleTabContent(index);
+					}
+				});
+			}
+		});
+	};
+
+	tabs();
 });
