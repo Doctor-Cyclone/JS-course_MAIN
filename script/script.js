@@ -288,4 +288,78 @@ window.addEventListener('DOMContentLoaded', function(){
 	};
 
 	slider();
+
+//////Data-img/////////////////////////////////////////////////////////////////////
+	const dataImg = () => {
+		const commandPhoto = document.querySelectorAll('.command__photo');
+		
+		commandPhoto.forEach( item => {
+			const itemSrc = item.src;
+
+			item.addEventListener('mouseenter', (event) => {
+				event.target.src = event.target.dataset.img;
+			});
+			item.addEventListener('mouseleave', (event) => {
+				event.target.src = itemSrc;
+			});
+		});
+	};
+
+	dataImg();
+
+//////Ограничения ввода символо///////////////////////////////////////////
+	const calcSymbol = () => {
+		const calcItem = document.querySelectorAll('.calc-block [type="text"]'),
+			mess = document.querySelector('.mess'),
+			footerFormInput = document.querySelector('.footer-form-input');
+
+		calcItem.forEach( item => {
+			item.addEventListener('input', () => {
+				item.value = item.value.replace(/[^0-9+$]/gi, '');
+			});
+		});
+
+		const blurRegExp = (target) => {
+			target.value = target.value.replace(/\-{2,}/g, '-');
+			target.value = target.value.replace(/\_{2,}/g, '_');
+			target.value = target.value.replace(/\.{2,}/g, '.');
+			target.value = target.value.replace(/\!{1,}/g, '!');
+			target.value = target.value.replace(/\`{2,}/g, '`');
+			target.value = target.value.replace(/\*{2,}/g, '*');
+			target.value = target.value.replace(/\'{2,}/g, "'");
+			target.value = target.value.replace(/\@{2,}/g, '@');
+			target.value = target.value.replace(/^[\s]+|[ \s]+$/, '');
+			target.value = target.value.replace(/^[/-]+|[/-]+$/, '');
+		};
+
+		footerFormInput.addEventListener('click', (event) => {
+			const target = event.target;
+			if(target.matches('#form2-name') || target.matches('#form2-message')){
+				target.addEventListener('input', () =>{
+					target.value = target.value.replace(/[^а-яё\- ]/gi, '');
+				});
+				target.addEventListener('blur', () =>{
+					blurRegExp(target);
+					target.value = target.value.replace(/\s{2,}/g, ' ');
+					target.value = target.value.charAt(0).toUpperCase() + target.value.substring(1).toLowerCase();
+				});
+			} else if(target.matches('#form2-email')){
+				target.addEventListener('input', () =>{
+					target.value = target.value.replace(/[^a-z\@\-\_\.\!\`\*\']/gi, '');
+				});
+				target.addEventListener('blur', () =>{
+					blurRegExp(target);
+				});
+			} else if(target.matches('#form2-phone')){
+				target.addEventListener('input', () =>{
+					target.value = target.value.replace(/[^-()\d]/g, '');
+				});
+				target.addEventListener('blur', () =>{
+					blurRegExp(target);
+				});
+			}
+		});
+	};
+
+	calcSymbol();
 });
