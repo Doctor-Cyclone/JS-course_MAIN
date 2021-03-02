@@ -310,8 +310,10 @@ window.addEventListener('DOMContentLoaded', function(){
 //////Ограничения ввода символо///////////////////////////////////////////
 	const calcSymbol = () => {
 		const calcItem = document.querySelectorAll('.calc-block [type="text"]'),
-			mess = document.querySelector('.mess'),
-			footerFormInput = document.querySelector('.footer-form-input');
+			name = document.querySelectorAll('[placeholder = "Ваше имя"]'),
+			message = document.querySelectorAll('[placeholder = "Ваше сообщение"]'),
+			email = document.querySelectorAll('[placeholder = "E-mail"]'),
+			phone = document.querySelectorAll('[placeholder = "Номер телефона"]');
 
 		calcItem.forEach( item => {
 			item.addEventListener('input', () => {
@@ -319,46 +321,65 @@ window.addEventListener('DOMContentLoaded', function(){
 			});
 		});
 
-		const blurRegExp = (target) => {
-			target.value = target.value.replace(/\-{2,}/g, '-');
-			target.value = target.value.replace(/\_{2,}/g, '_');
-			target.value = target.value.replace(/\.{2,}/g, '.');
-			target.value = target.value.replace(/\!{1,}/g, '!');
-			target.value = target.value.replace(/\`{2,}/g, '`');
-			target.value = target.value.replace(/\*{2,}/g, '*');
-			target.value = target.value.replace(/\'{2,}/g, "'");
-			target.value = target.value.replace(/\@{2,}/g, '@');
-			target.value = target.value.replace(/^[\s]+|[ \s]+$/, '');
-			target.value = target.value.replace(/^[/-]+|[/-]+$/, '');
+		const blurRegExp = (item) => {
+			item.addEventListener('blur', () =>{
+				item.value = item.value.replace(/\-{2,}/g, '-');
+				item.value = item.value.replace(/\s{2,}/g, ' ');
+				item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
+				item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+			});
 		};
 
-		footerFormInput.addEventListener('click', (event) => {
-			const target = event.target;
-			if(target.matches('#form2-name') || target.matches('#form2-message')){
-				target.addEventListener('input', () =>{
-					target.value = target.value.replace(/[^а-яё\- ]/gi, '');
+		const validationFunc = (item) => {
+			if(item.matches('#form2-name') || item.matches('#form2-message')){
+				item.addEventListener('input', () =>{
+					item.value = item.value.replace(/[^а-яё\- ]/gi, '');
 				});
-				target.addEventListener('blur', () =>{
-					blurRegExp(target);
-					target.value = target.value.replace(/\s{2,}/g, ' ');
-					target.value = target.value.charAt(0).toUpperCase() + target.value.substring(1).toLowerCase();
+
+				if(item.matches('#form2-name')){
+					item.addEventListener('blur', () =>{
+						item.value = item.value.replace(/\-{2,}/g, '-');
+						item.value = item.value.replace(/\s{2,}/g, ' ');
+						item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
+						item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+
+						const newArr = item.value.split(' ').map( item => {
+							return item.charAt(0).toUpperCase() + item.substring(1).toLowerCase();
+						});
+						item.value = newArr.join(' ');
+					});
+				} else {
+					blurRegExp(item);
+				}
+
+			} else if(item.matches('#form2-email')){
+				item.addEventListener('input', () =>{
+					item.value = item.value.replace(/[^a-z\@\-\_\.\!\`\*\']/gi, '');
 				});
-			} else if(target.matches('#form2-email')){
-				target.addEventListener('input', () =>{
-					target.value = target.value.replace(/[^a-z\@\-\_\.\!\`\*\']/gi, '');
+				blurRegExp(item);
+
+			} else if(item.matches('#form2-phone')){
+				item.addEventListener('input', () =>{
+					item.value = item.value.replace(/[^-()\d]/g, '');
 				});
-				target.addEventListener('blur', () =>{
-					blurRegExp(target);
-				});
-			} else if(target.matches('#form2-phone')){
-				target.addEventListener('input', () =>{
-					target.value = target.value.replace(/[^-()\d]/g, '');
-				});
-				target.addEventListener('blur', () =>{
-					blurRegExp(target);
-				});
+				blurRegExp(item);
 			}
+
+		};
+
+		name.forEach( item => {
+			validationFunc(item);
 		});
+		message.forEach( item => {
+			validationFunc(item);
+		});
+		email.forEach( item => {
+			validationFunc(item);
+		});
+		phone.forEach( item => {
+			validationFunc(item);
+		});
+
 	};
 
 	calcSymbol();
