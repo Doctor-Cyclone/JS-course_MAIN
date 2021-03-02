@@ -331,12 +331,12 @@ window.addEventListener('DOMContentLoaded', function(){
 		};
 
 		const validationFunc = (item) => {
-			if(item.matches('#form2-name') || item.matches('#form2-message')){
+			if(item.getAttribute('name') === 'user_name' || item.getAttribute('name') === 'user_message'){
 				item.addEventListener('input', () =>{
 					item.value = item.value.replace(/[^а-яё\- ]/gi, '');
 				});
 
-				if(item.matches('#form2-name')){
+				if(item.getAttribute('name') === 'user_name'){
 					item.addEventListener('blur', () =>{
 						item.value = item.value.replace(/\-{2,}/g, '-');
 						item.value = item.value.replace(/\s{2,}/g, ' ');
@@ -352,13 +352,13 @@ window.addEventListener('DOMContentLoaded', function(){
 					blurRegExp(item);
 				}
 
-			} else if(item.matches('#form2-email')){
+			} else if(item.getAttribute('name') === 'user_email'){
 				item.addEventListener('input', () =>{
 					item.value = item.value.replace(/[^a-z\@\-\_\.\!\`\*\']/gi, '');
 				});
 				blurRegExp(item);
 
-			} else if(item.matches('#form2-phone')){
+			} else if(item.getAttribute('name') === 'user_phone'){
 				item.addEventListener('input', () =>{
 					item.value = item.value.replace(/[^-()\d]/g, '');
 				});
@@ -368,6 +368,7 @@ window.addEventListener('DOMContentLoaded', function(){
 		};
 
 		name.forEach( item => {
+			console.log(item);
 			validationFunc(item);
 		});
 		message.forEach( item => {
