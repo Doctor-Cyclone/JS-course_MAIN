@@ -360,9 +360,21 @@ window.addEventListener('DOMContentLoaded', function(){
 
 			} else if(item.getAttribute('name') === 'user_phone'){
 				item.addEventListener('input', () =>{
-					item.value = item.value.replace(/[^-()\d]/g, '');
+					item.value = item.value.replace(/[^-()\d ]/g, '');
 				});
-				blurRegExp(item);
+				item.addEventListener('blur', () =>{
+					item.value = item.value.replace(/\-{2,}/g, '-');
+					item.value = item.value.replace(/\s{2,}/g, ' ');
+					item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
+					item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+					item.value = item.value.replace(/\d{12,}/g, item.value.substr(0, 11));
+
+					if(/\+?[78]([-()]*\d){10}/g.test(item.value.replace(/\s{1,}/g, ''))){
+						return;
+					} else {
+						item.value = '';
+					}
+				});
 			}
 
 		};
