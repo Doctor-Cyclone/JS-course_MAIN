@@ -362,7 +362,15 @@ window.addEventListener('DOMContentLoaded', function(){
 				item.addEventListener('input', () =>{
 					item.value = item.value.replace(/\+?[78]([-()]*\d){11}/g, '');
 				});
-				blurRegExp(item);
+				item.addEventListener('blur', () =>{
+					item.value = item.value.replace(/\-{2,}/g, '-');
+					item.value = item.value.replace(/\s{1,}/g, '');
+					item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
+					item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+					let xxx = item.value.substr(0, 11);
+					console.log(xxx);
+					item.value = item.value.replace(/\d{12,}/g, xxx);
+				});
 			}
 
 		};
@@ -392,15 +400,16 @@ window.addEventListener('DOMContentLoaded', function(){
 			calcDay = document.querySelector('.calc-day'),
 			calcCount = document.querySelector('.calc-count'),
 			totalValue = document.getElementById('total'),
-			step = 10;
+			step = 100;
 
 		const animation = (total) => {
 			let startNum = 0;
 			const interval = setInterval(() => {
 				startNum += step;
 
-				if(startNum === total){
+				if(startNum >= total){
 					clearInterval(interval);
+					startNum += total;
 				}
 				totalValue.textContent = startNum;
 			}, 0);
