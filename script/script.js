@@ -364,14 +364,14 @@ window.addEventListener('DOMContentLoaded', function(){
 				});
 				item.addEventListener('blur', () =>{
 					item.value = item.value.replace(/\-{2,}/g, '-');
-					item.value = item.value.replace(/\s{1,}/g, '');
+					item.value = item.value.replace(/\s{2,}/g, ' ');
 					item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
 					item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+					item.value = item.value.replace(/\d{12,}/g, item.value.substr(0, 11));
 
-					let xxx = item.value.substr(0, 11);
-					item.value = item.value.replace(/\d{12,}/g, xxx);
-
-					if(/\+?[78]([-()]*\d){10}/g.test(item.value)){
+					let xxx = item.value;
+					xxx = item.value.replace(/\s{1,}/g, '');
+					if(/\+?[78]([-()]*\d){10}/g.test(xxx)){
 						return;
 					} else {
 						item.value = '';
