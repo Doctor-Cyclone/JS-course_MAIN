@@ -360,19 +360,22 @@ window.addEventListener('DOMContentLoaded', function(){
 
 			} else if(item.getAttribute('name') === 'user_phone'){
 				item.addEventListener('input', () =>{
-					item.value = item.value.replace(/\+?[78]([-()]*\d){11}/g, '');
+					item.value = item.value.replace(/[^-()\d]/g, '');
 				});
 				item.addEventListener('blur', () =>{
-					if(!/\+?[78]([-()]*\d){11}/g.test(item.value)){
+					item.value = item.value.replace(/\-{2,}/g, '-');
+					item.value = item.value.replace(/\s{1,}/g, '');
+					item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
+					item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+
+					let xxx = item.value.substr(0, 11);
+					item.value = item.value.replace(/\d{12,}/g, xxx);
+					
+					if(/\+?[78]([-()]*\d){10}/g.test(item.value)){
+						return;
+					} else {
 						item.value = '';
 					}
-					// item.value = item.value.replace(/\-{2,}/g, '-');
-					// item.value = item.value.replace(/\s{1,}/g, '');
-					// item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
-					// item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
-					// let xxx = item.value.substr(0, 11);
-					// console.log(xxx);
-					// item.value = item.value.replace(/\d{12,}/g, xxx);
 				});
 			}
 
