@@ -408,7 +408,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 		const animation = (total) => {
 			let startNum = 0;
-			step = (total / 100) * 5;
+			step = (total / 100) * 3;
 			const interval = setInterval(() => {
 				startNum += step;
 
