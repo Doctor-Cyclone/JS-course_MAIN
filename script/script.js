@@ -307,7 +307,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 	dataImg();
 
-//////Ограничения ввода символо///////////////////////////////////////////
+//////Ограничения ввода символов///////////////////////////////////////////////////
 	const calcSymbol = () => {
 		const calcItem = document.querySelectorAll('.calc-block [type="text"]'),
 			name = document.querySelectorAll('[placeholder = "Ваше имя"]'),
@@ -368,7 +368,6 @@ window.addEventListener('DOMContentLoaded', function(){
 		};
 
 		name.forEach( item => {
-			console.log(item);
 			validationFunc(item);
 		});
 		message.forEach( item => {
@@ -384,4 +383,63 @@ window.addEventListener('DOMContentLoaded', function(){
 	};
 
 	calcSymbol();
+
+//////Калькулятор//////////////////////////////////////////////////////////////////
+	const calc = (price = 100) => {
+		const calcBlock = document.querySelector('.calc-block'),
+			calcType = document.querySelector('.calc-type'),
+			calcSquare = document.querySelector('.calc-square'),
+			calcDay = document.querySelector('.calc-day'),
+			calcCount = document.querySelector('.calc-count'),
+			totalValue = document.getElementById('total'),
+			step = 10;
+
+		const animation = (total) => {
+			let startNum = 0;
+			const interval = setInterval(() => {
+				startNum += step;
+
+				if(startNum === total){
+					clearInterval(interval);
+				}
+				totalValue.textContent = startNum;
+			}, 0);
+		};
+
+		const countSum = () => {
+			let total = 0,
+				countValue = 1,
+				dayValue = 1;
+			const typeValue = calcType.options[calcType.selectedIndex].value,
+				squareValue = +calcSquare.value;
+
+			if(calcCount.value > 1){
+				countValue += (calcCount.value - 1) / 10;
+			}
+
+			if(calcDay.value && calcDay.value < 5){
+				dayValue *= 2;
+			} else if(calcDay.value && calcDay.value < 10){
+				dayValue *= 1.5;
+			}
+
+			if(typeValue && squareValue){
+				total = price * typeValue * squareValue * countValue * dayValue;
+				animation(total);
+			}
+
+			
+			//totalValue.textContent = total;
+		};
+
+		calcBlock.addEventListener('change', (event) => {
+			const target = event.target;
+
+			if(target === calcType || target === calcSquare || target === calcDay || target === calcCount){
+				countSum();
+			}
+		});	
+	};
+
+	calc(100);
 });
