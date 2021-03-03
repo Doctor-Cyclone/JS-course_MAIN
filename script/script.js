@@ -360,7 +360,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 			} else if(item.getAttribute('name') === 'user_phone'){
 				item.addEventListener('input', () =>{
-					item.value = item.value.replace(/[^-()\d]/g, '');
+					item.value = item.value.replace(/\+?[78]([-()]*\d){11}/g, '');
 				});
 				blurRegExp(item);
 			}
