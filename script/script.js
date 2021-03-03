@@ -369,9 +369,7 @@ window.addEventListener('DOMContentLoaded', function(){
 					item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
 					item.value = item.value.replace(/\d{12,}/g, item.value.substr(0, 11));
 
-					let xxx = item.value;
-					xxx = item.value.replace(/\s{1,}/g, '');
-					if(/\+?[78]([-()]*\d){10}/g.test(xxx)){
+					if(/\+?[78]([-()]*\d){10}/g.test(item.value.replace(/\s{1,}/g, ''))){
 						return;
 					} else {
 						item.value = '';
