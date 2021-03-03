@@ -360,7 +360,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 			} else if(item.getAttribute('name') === 'user_phone'){
 				item.addEventListener('input', () =>{
-					item.value = item.value.replace(/[^-()\d]/g, '');
+					item.value = item.value.replace(/[^-()\d ]/g, '');
 				});
 				item.addEventListener('blur', () =>{
 					item.value = item.value.replace(/\-{2,}/g, '-');
@@ -370,7 +370,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 					let xxx = item.value.substr(0, 11);
 					item.value = item.value.replace(/\d{12,}/g, xxx);
-					
+
 					if(/\+?[78]([-()]*\d){10}/g.test(item.value)){
 						return;
 					} else {
