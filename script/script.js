@@ -403,11 +403,12 @@ window.addEventListener('DOMContentLoaded', function(){
 			calcSquare = document.querySelector('.calc-square'),
 			calcDay = document.querySelector('.calc-day'),
 			calcCount = document.querySelector('.calc-count'),
-			totalValue = document.getElementById('total'),
-			step = 100;
+			totalValue = document.getElementById('total');
+		let step = 0;
 
 		const animation = (total) => {
 			let startNum = 0;
+			step = (total / 100) * 5;
 			const interval = setInterval(() => {
 				startNum += step;
 
