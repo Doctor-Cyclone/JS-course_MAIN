@@ -363,13 +363,16 @@ window.addEventListener('DOMContentLoaded', function(){
 					item.value = item.value.replace(/\+?[78]([-()]*\d){11}/g, '');
 				});
 				item.addEventListener('blur', () =>{
-					item.value = item.value.replace(/\-{2,}/g, '-');
-					item.value = item.value.replace(/\s{1,}/g, '');
-					item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
-					item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
-					let xxx = item.value.substr(0, 11);
-					console.log(xxx);
-					item.value = item.value.replace(/\d{12,}/g, xxx);
+					if(!/\+?[78]([-()]*\d){11}/g.test(item.value)){
+						item.value = '';
+					}
+					// item.value = item.value.replace(/\-{2,}/g, '-');
+					// item.value = item.value.replace(/\s{1,}/g, '');
+					// item.value = item.value.replace(/^[\s]+|[ \s]+$/, '');
+					// item.value = item.value.replace(/^[/-]+|[/-]+$/, '');
+					// let xxx = item.value.substr(0, 11);
+					// console.log(xxx);
+					// item.value = item.value.replace(/\d{12,}/g, xxx);
 				});
 			}
 
