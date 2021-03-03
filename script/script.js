@@ -392,15 +392,16 @@ window.addEventListener('DOMContentLoaded', function(){
 			calcDay = document.querySelector('.calc-day'),
 			calcCount = document.querySelector('.calc-count'),
 			totalValue = document.getElementById('total'),
-			step = 10;
+			step = 100;
 
 		const animation = (total) => {
 			let startNum = 0;
 			const interval = setInterval(() => {
 				startNum += step;
 
-				if(startNum === total){
+				if(startNum >= total){
 					clearInterval(interval);
+					startNum += total;
 				}
 				totalValue.textContent = startNum;
 			}, 0);
