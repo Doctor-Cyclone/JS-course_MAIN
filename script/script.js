@@ -440,12 +440,9 @@ window.addEventListener('DOMContentLoaded', function(){
 			}
 
 			if(typeValue && squareValue){
-				total = price * typeValue * squareValue * countValue * dayValue;
+				total = Math.round(price * typeValue * squareValue * countValue * dayValue);
 				animation(total);
 			}
-
-			
-			//totalValue.textContent = total;
 		};
 
 		calcBlock.addEventListener('change', (event) => {
@@ -468,6 +465,8 @@ window.addEventListener('DOMContentLoaded', function(){
 		const form = document.getElementById(id),
 			formInputs = form.querySelectorAll('input'),
 			statusMessage = document.createElement('div');
+
+			statusMessage.style.color = '#fff';
 
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
