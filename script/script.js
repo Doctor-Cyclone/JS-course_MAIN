@@ -388,9 +388,9 @@ window.addEventListener('DOMContentLoaded', function(){
 		email.forEach( item => {
 			validationFunc(item);
 		});
-		phone.forEach( item => {
-			validationFunc(item);
-		});
+		// phone.forEach( item => {
+		// 	validationFunc(item);
+		// });
 
 	};
 
