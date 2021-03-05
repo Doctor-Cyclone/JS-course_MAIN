@@ -462,18 +462,17 @@ window.addEventListener('DOMContentLoaded', function(){
 //////Отправка AJAX-FORM///////////////////////////////////////////////////////////
 	const sendForm = (id) => {
 		const errorMessage = 'Что-то пошло не так...',
-			loadMessage = 'Загрузка...',
-			successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+			successMessage = 'Спасибо! Мы скоро с вами свяжемся!',
+			loadImg = '<img src = "./images/loadImg.svg" alt = "загрузка">';
 
-		const form = document.getElementById(id);
-		const formInputs = form.querySelectorAll('input');
-		const statusMessage = document.createElement('div');
+		const form = document.getElementById(id),
+			formInputs = form.querySelectorAll('input'),
+			statusMessage = document.createElement('div');
 
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
 			form.appendChild(statusMessage);
-
-			statusMessage.textContent = loadMessage;
+			statusMessage.innerHTML = loadImg;
 
 			const formData = new FormData(form);
 			let body = {};
