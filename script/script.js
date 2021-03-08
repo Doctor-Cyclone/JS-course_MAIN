@@ -479,34 +479,36 @@ window.addEventListener('DOMContentLoaded', function(){
 				body[key] = value;
 			});
 
-			postData(body, () => {
-				statusMessage.textContent = successMessage;
-			}, () => {
-				statusMessage.textContent = errorMessage;
-			});
+			const outputData = () => statusMessage.textContent = successMessage;
+			const errorData = () => statusMessage.textContent = errorMessage;
+
+			postData(body).then(outputData).catch(errorData);
 		});
 
-		const postData = (body, outputData, errorData) => {
-			const request = new XMLHttpRequest();
+		const postData = (body) => {
+			return new Promise( (resolve, reject) => {
+				const request = new XMLHttpRequest();
 
-			request.addEventListener('readystatechange', () => {
-				if(request.readyState !== 4){
-					return;
-				}
-				if(request.status === 200){
-					outputData();
-				} else {
-					errorData();
-				}
-			});
+				request.addEventListener('readystatechange', () => {
+					if(request.readyState !== 4){
+						return;
+					}
 
-			request.open('POST', './server.php');
-			request.setRequestHeader('Content-Type', 'application/json');
-			request.send(JSON.stringify(body));
+					if(request.status === 200){
+						resolve();
+					} else {
+						reject(request.statusText);
+					}
+				});
 
-			formInputs.forEach( item => {
-				item.value = '';
-			});
+				request.open('POST', './server.php');
+				request.setRequestHeader('Content-Type', 'application/json');
+				request.send(JSON.stringify(body));
+
+				formInputs.forEach( item => {
+					item.value = '';
+				});
+			});	
 		};
 		
 	};
