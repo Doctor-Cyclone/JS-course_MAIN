@@ -418,7 +418,7 @@ window.addEventListener('DOMContentLoaded', function(){
 					clearInterval(interval);
 					startNum += total;
 				}
-				totalValue.textContent = startNum;
+				totalValue.textContent = Math.round(startNum);
 			}, 0);
 		};
 
@@ -485,6 +485,9 @@ window.addEventListener('DOMContentLoaded', function(){
 						throw new Error('status network not 200');
 					}
 					statusMessage.textContent = successMessage;
+					formInputs.forEach( item => {
+						item.value = '';
+					});
 				})
 				.catch((error) => {
 					statusMessage.textContent = errorMessage;
