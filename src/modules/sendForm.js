@@ -1,3 +1,5 @@
+import closePopup from './closePopup';
+
 const sendForm = (id) => {
     const errorMessage = 'Что-то пошло не так...',
         successMessage = 'Спасибо! Мы скоро с вами свяжемся!',
@@ -26,6 +28,10 @@ const sendForm = (id) => {
                     throw new Error('status network not 200');
                 }
                 statusMessage.textContent = successMessage;
+                setTimeout( () => {
+                    statusMessage.textContent = '';
+                    closePopup();
+                }, 2000);
                 formInputs.forEach( item => {
                     item.value = '';
                 });

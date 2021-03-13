@@ -1,20 +1,13 @@
+import closePopup from './closePopup';
+
 const togglePopup = () => {
     const popup = document.querySelector('.popup'),
         popupBtn = document.querySelectorAll('.popup-btn'),
         popupContent = document.querySelector('.popup-content'),
         scrollWidth = document.documentElement.scrollWidth;
 
-    const closeAnimation = () => {
-        if(scrollWidth < 768){
-            popup.style.display = 'none';
-        } else {
-            popupContent.style.transition = 'all .2s linear';
-            popupContent.style.transform = 'scale(0)';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 250);
-        }
-    }
+    closePopup();
+    
     const openAnimation = () => {
         if(scrollWidth < 768){
             popup.style.display = 'block';
@@ -26,7 +19,7 @@ const togglePopup = () => {
                 popupContent.style.transform = 'scale(1)';
             }, 100);
         }
-    }
+    };
 
     //Открытие//////////////////////////////////////////////////////////////////
     popupBtn.forEach( item => {
@@ -40,10 +33,10 @@ const togglePopup = () => {
         let target = event.target;
 
         if(target.classList.contains('popup-close')){
-            closeAnimation();
+            closePopup();
         } else {
             if(!target.closest('.popup-content')){
-                closeAnimation();
+                closePopup();
             }
         }			
     });
